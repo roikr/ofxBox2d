@@ -155,14 +155,26 @@ void ofxBox2dPolygon::create(b2World * b2dworld) {
 			verts[0].Set(a.x/OFX_BOX2D_SCALE, a.y/OFX_BOX2D_SCALE);
 			verts[1].Set(b.x/OFX_BOX2D_SCALE, b.y/OFX_BOX2D_SCALE);
 			verts[2].Set(c.x/OFX_BOX2D_SCALE, c.y/OFX_BOX2D_SCALE);
+            
+            bool bPolyDeg=false;
+            for (size_t j=0;j<3;j++) {
+                for (size_t k=0;k<j;k++) {
+                    if (b2DistanceSquared(verts[j], verts[k]) < 0.5f * b2_linearSlop) {
+                        bPolyDeg = true;
+                        break;
+                    }
+                }
+            }
 			
-			shape.Set(verts, 3);
-			
-			fixture.density		= density;
-			fixture.restitution = bounce;
-			fixture.friction	= friction;
-			fixture.shape		= &shape;
-			body->CreateFixture(&fixture);
+            if (!bPolyDeg) {
+                shape.Set(verts, 3);
+                
+                fixture.density		= density;
+                fixture.restitution = bounce;
+                fixture.friction	= friction;
+                fixture.shape		= &shape;
+                body->CreateFixture(&fixture);
+            }
 		}
 	
 	}

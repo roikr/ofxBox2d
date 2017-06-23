@@ -22,6 +22,7 @@ public:
 	
 	b2Fixture * a;
 	b2Fixture * b;
+    b2WorldManifold m;
 };
 
 class ofxBox2d : public b2ContactListener {
@@ -38,6 +39,7 @@ private:
 		static ofxBox2dContactArgs args;
 		args.a = contact->GetFixtureA();
 		args.b = contact->GetFixtureB();
+        contact->GetWorldManifold(&args.m);
 		ofNotifyEvent( contactStartEvents, args, this);
 	}
 	
@@ -46,6 +48,7 @@ private:
 		static ofxBox2dContactArgs args;
 		args.a = contact->GetFixtureA();
 		args.b = contact->GetFixtureB();
+        contact->GetWorldManifold(&args.m);
 		ofNotifyEvent( contactEndEvents, args, this);
 	}
 	

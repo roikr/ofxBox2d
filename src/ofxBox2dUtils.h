@@ -2,7 +2,7 @@
 #include "ofMain.h"
 #include "Box2D.h"
 
-#define OFX_BOX2D_SCALE 30.0f
+#define OFX_BOX2D_SCALE 10.0f
 
 
 static float b2dNum(float f) {
